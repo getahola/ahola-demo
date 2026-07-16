@@ -34,12 +34,13 @@ jobs:
 
       - name: Build
         # Serve from /<repo>/ so asset URLs resolve on the project Pages site.
-        # VITE_APP_PASSWORD comes from a repo secret so the code isn't in source.
-        # (Reminder: it still ends up in the shipped JS bundle — casual gate only.)
+        # VITE_APP_PASSWORD_HASH is a SHA-256 hash from a repo secret, so neither
+        # the source nor the shipped bundle contains the plaintext password.
+        # (Reminder: a client-side gate is still not real security.)
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
-          VITE_APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          VITE_APP_PASSWORD_HASH: ${{ secrets.APP_PASSWORD_HASH }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

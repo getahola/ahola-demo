@@ -1,13 +1,24 @@
 import { useState, type ReactNode } from 'react'
 
-// The demo password. Set VITE_APP_PASSWORD at build time to override.
-// NOTE: this is a client-side gate only. Because the app is a static site,
-// the password ships inside the JS bundle and can be recovered by a
-// determined visitor. It keeps casual eyes out — it is NOT real security.
-// For enforced access control, host behind Netlify/Vercel password protection
-// or Cloudflare Access instead.
-const PASSWORD = import.meta.env.VITE_APP_PASSWORD ?? 'sayhi'
+// SHA-256 hash of the access code — the plaintext password is never stored in
+// the source or the shipped bundle. Set VITE_APP_PASSWORD_HASH at build time to
+// override. The default below is the hash of the local dev code ("sayhi").
+// NOTE: this is still a client-side gate. Hashing hides the plaintext, but a
+// determined visitor can brute-force a weak code or bypass the check entirely.
+// It keeps casual eyes out — it is NOT real security. For enforced access,
+// host behind Netlify/Vercel password protection or Cloudflare Access.
+const PASSWORD_HASH =
+  import.meta.env.VITE_APP_PASSWORD_HASH ??
+  'c559477b1796a65cbc2fd7395adf85a4c80bfdb2e584f3e23a5af6cacf689be4'
 const UNLOCK_KEY = 'sayhi.unlocked'
+
+async function sha256Hex(text: string): Promise<string> {
+  const bytes = new TextEncoder().encode(text)
+  const digest = await crypto.subtle.digest('SHA-256', bytes)
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
 
 export function PasswordGate({ children }: { children: ReactNode }) {
   const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(UNLOCK_KEY) === '1')
@@ -16,9 +27,10 @@ export function PasswordGate({ children }: { children: ReactNode }) {
 
   if (unlocked) return <>{children}</>
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (value === PASSWORD) {
+    const hash = await sha256Hex(value)
+    if (hash === PASSWORD_HASH) {
       sessionStorage.setItem(UNLOCK_KEY, '1')
       setUnlocked(true)
     } else {
