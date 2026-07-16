@@ -39,7 +39,7 @@ function StatusBar() {
  * a light/dark presentation background toggle.
  */
 export function PhoneFrame({ children }: { children: ReactNode }) {
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(true)
 
   return (
     <>
