@@ -282,6 +282,10 @@ export default function App() {
               onEndTrip={handleEndTrip}
             />
           )}
+
+          <p className="mt-6 pb-2 text-center text-[11px] text-slate-400">
+            © 2026 Daniel Weppeler · Concept demo · All rights reserved
+          </p>
         </main>
 
         {showTabs && (

@@ -33,10 +33,13 @@ jobs:
         run: npm ci
 
       - name: Build
-        # Serve from /<repo>/ so asset URLs resolve on the project Pages site
+        # Serve from /<repo>/ so asset URLs resolve on the project Pages site.
+        # VITE_APP_PASSWORD comes from a repo secret so the code isn't in source.
+        # (Reminder: it still ends up in the shipped JS bundle — casual gate only.)
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
