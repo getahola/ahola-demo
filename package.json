@@ -1,9 +1,9 @@
 {
-  "name": "fellu",
+  "name": "sayhi",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Fellu — the happiest way to meet people. Connect with friendly travelers around you based on shared interests.",
+  "description": "SayHi — the happiest way to meet people. Connect with friendly travelers around you based on shared interests.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

@@ -1,11 +1,11 @@
 /**
- * Fellu placeholder brand mark — a friendly quokka ("the happiest animal"),
+ * SayHi placeholder brand mark — a friendly quokka ("the happiest animal"),
  * matching the tagline "The happiest way to meet people".
  * Inline SVG so it renders crisply at any size without relying on emoji fonts.
  */
 export function Logo({ size = 32, badge = true }: { size?: number; badge?: boolean }) {
   const quokka = (
-    <svg viewBox="0 0 48 48" width={size} height={size} role="img" aria-label="Fellu">
+    <svg viewBox="0 0 48 48" width={size} height={size} role="img" aria-label="SayHi">
       {/* ears */}
       <circle cx="15" cy="12" r="6.5" fill="#b9773f" />
       <circle cx="33" cy="12" r="6.5" fill="#b9773f" />
