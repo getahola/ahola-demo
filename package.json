@@ -1,9 +1,9 @@
 {
-  "name": "sayhi",
+  "name": "fellu",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "SayHi — connect with fellow passengers on the same long-distance train (ICE/IC) based on shared interests.",
+  "description": "Fellu — the happiest way to meet people. Connect with friendly travelers around you based on shared interests.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

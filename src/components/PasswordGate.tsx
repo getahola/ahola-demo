@@ -42,9 +42,10 @@ export function PasswordGate({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen items-center justify-center bg-brand-800 p-6 text-white">
       <form onSubmit={submit} className="w-full max-w-sm text-center">
         <div className="mb-6">
-          <div className="text-5xl">🚄</div>
-          <h1 className="mt-3 text-2xl font-bold tracking-tight">SayHi</h1>
-          <p className="mt-1 text-sm text-brand-100">Private preview — please enter the access code.</p>
+          <div className="text-5xl">�</div>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight">Fellu</h1>
+          <p className="mt-1 text-sm text-brand-100">The happiest way to meet people.</p>
+          <p className="mt-3 text-xs text-brand-100/80">Private preview — please enter the access code.</p>
         </div>
 
         <input

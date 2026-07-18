@@ -10,6 +10,7 @@ export function ProfileSetup({ initial, onSave }: { initial: Profile | null; onS
   const [bio, setBio] = useState(initial?.bio ?? '')
   const [lookingFor, setLookingFor] = useState(initial?.lookingFor ?? '')
   const [interests, setInterests] = useState<string[]>(initial?.interests ?? [])
+  const [hideCoach, setHideCoach] = useState(initial?.hideCoach ?? false)
 
   const toggle = (i: string) =>
     setInterests((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]))
@@ -26,6 +27,7 @@ export function ProfileSetup({ initial, onSave }: { initial: Profile | null; onS
       lookingFor: lookingFor.trim(),
       interests,
       available: initial?.available ?? true,
+      hideCoach,
     })
   }
 
@@ -87,6 +89,28 @@ export function ProfileSetup({ initial, onSave }: { initial: Profile | null; onS
           placeholder="e.g. Looking for a chess partner between Frankfurt and Munich."
         />
       </Field>
+
+      <button
+        type="button"
+        onClick={() => setHideCoach((v) => !v)}
+        className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-left hover:bg-slate-50"
+      >
+        <span className="text-xl">🔒</span>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium text-slate-800">Hide my coach</p>
+          <p className="mt-0.5 text-xs text-slate-500">
+            {hideCoach ? 'Stays hidden even after you connect' : 'Shown only after you connect'}
+          </p>
+        </div>
+        <span
+          aria-hidden
+          className={`relative h-6 w-11 shrink-0 rounded-full transition ${hideCoach ? 'bg-brand-600' : 'bg-slate-300'}`}
+        >
+          <span
+            className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${hideCoach ? 'left-[22px]' : 'left-0.5'}`}
+          />
+        </span>
+      </button>
 
       <div className="flex items-center gap-3 pt-1">
         <Avatar emoji={avatar} />

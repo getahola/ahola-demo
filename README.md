@@ -1,9 +1,9 @@
-# 🚄 SayHi
+# � Fellu
 
-Connect with fellow passengers on the **same long-distance train** (ICE / IC) based on shared interests.
-Check in to your train, share what you're up for, and discover travelers who want to play a game, talk about AI, do a language tandem, or just grab a coffee.
+**The happiest way to meet people.** Connect with friendly travelers around you based on shared interests.
+Check in to your journey, share what you're up for, and discover people who want to play a game, talk about AI, do a language tandem, or just grab a coffee.
 
-> Working name **SayHi** — matches the app's "👋 Say hi" action. See other name ideas in [docs/NAMES.md](docs/NAMES.md).
+> Working name **Fellu** — warm, short, and transport-agnostic. See other name ideas in [docs/NAMES.md](docs/NAMES.md).
 
 ## What's in here
 

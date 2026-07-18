@@ -2,7 +2,7 @@ import { INTERESTS } from '../data'
 import { Button } from './ui'
 
 /**
- * Marketing-style landing / home screen shown when the user taps the SayHi
+ * Marketing-style landing / home screen shown when the user taps the Fellu
  * wordmark. Explains the concept and lets them jump into the app.
  */
 export function Landing({ onEnter }: { onEnter: () => void }) {
@@ -10,13 +10,13 @@ export function Landing({ onEnter }: { onEnter: () => void }) {
     <div className="space-y-8 pb-4">
       {/* Hero */}
       <section className="space-y-4 pt-2 text-center">
-        <div className="text-5xl">🚄👋</div>
+        <div className="text-5xl">👋✨</div>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-          Say hi to your <span className="text-brand-600">train</span>
+          The happiest way to <span className="text-brand-600">meet people</span>
         </h1>
         <p className="mx-auto max-w-xs text-slate-500">
-          Long ICE &amp; IC rides don't have to be lonely. Check in, share what you're up for, and meet
-          fellow passengers on the same train.
+          Long journeys don't have to be lonely. Check in, share what you're up for, and meet
+          friendly people traveling alongside you.
         </p>
         <div className="flex justify-center pt-1">
           <Button onClick={onEnter}>Get started</Button>
