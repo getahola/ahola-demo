@@ -108,7 +108,7 @@ export function Discover({
 
   return (
     <div className="space-y-5">
-      <div className="rounded-2xl bg-brand-700 p-4 text-white shadow-sm ring-1 ring-brand-800">
+      <div className="rounded-2xl bg-teal p-4 text-white shadow-sm ring-1 ring-black/10">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-wide text-brand-100">Checked in</p>
