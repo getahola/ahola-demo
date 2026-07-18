@@ -12,6 +12,11 @@ export default {
           700: '#0f766e',
           800: '#115e59',
         },
+        // ahola brand palette
+        koralle: '#D85A30',
+        creme: '#FAF3EA',
+        tinte: '#2C2C2A',
+        teal: '#0F6E56',
       },
     },
   },
