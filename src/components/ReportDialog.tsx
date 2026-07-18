@@ -28,7 +28,7 @@ export function ReportDialog({
       >
         <h3 className="text-lg font-semibold text-slate-800">Report {passenger.name}</h3>
         <p className="mt-1 text-sm text-slate-500">
-          Reports are confidential and help keep SayHi safe. Choose a reason:
+          Reports are confidential and help keep ahola safe. Choose a reason:
         </p>
 
         <div className="mt-4 space-y-2">

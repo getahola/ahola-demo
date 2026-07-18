@@ -48,7 +48,7 @@ export function Verify({ onVerified }: { onVerified: (v: Verification) => void }
         <div className="text-4xl">🔒</div>
         <h2 className="mt-2 text-xl font-semibold text-slate-800">Verify to continue</h2>
         <p className="text-sm text-slate-500">
-          SayHi is a safe space to meet fellow travelers. A quick verification keeps the community real and
+          ahola is a safe space to meet fellow travelers. A quick verification keeps the community real and
           respectful.
         </p>
       </div>

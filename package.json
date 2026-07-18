@@ -1,9 +1,9 @@
 {
-  "name": "sayhi",
+  "name": "ahola",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "SayHi — the happiest way to meet people. Connect with friendly travelers around you based on shared interests.",
+  "description": "ahola — the happiest way to meet people. Connect with friendly travelers around you based on shared interests.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

@@ -2,7 +2,7 @@ import { INTERESTS } from '../data'
 import { Button } from './ui'
 
 /**
- * Marketing-style landing / home screen shown when the user taps the SayHi
+ * Marketing-style landing / home screen shown when the user taps the ahola
  * wordmark. Explains the concept and lets them jump into the app.
  */
 export function Landing({ onEnter }: { onEnter: () => void }) {

@@ -196,7 +196,7 @@ export default function App() {
         <header className="flex items-center justify-between bg-brand-700 px-4 pb-3 pt-12 text-white shadow-sm">
           <div className="flex items-center gap-2">
             <Logo size={26} />
-            <span className="text-lg font-bold tracking-tight">SayHi</span>
+            <span className="text-lg font-bold tracking-tight">ahola</span>
           </div>
           {profile && !gate && (
             <button

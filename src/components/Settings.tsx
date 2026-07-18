@@ -109,7 +109,7 @@ export function Settings({
         </section>
       )}
 
-      <p className="pt-2 text-center text-xs text-slate-400">SayHi · prototype · local data only</p>
+      <p className="pt-2 text-center text-xs text-slate-400">ahola · prototype · local data only</p>
     </div>
   )
 }
