@@ -83,7 +83,7 @@ export function TripEnd({ passengers, onDone }: { passengers: Passenger[]; onDon
                   </button>
                   <button
                     onClick={() => request(passenger, index)}
-                    className="rounded-lg bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
+                    className="rounded-lg bg-koralle px-3 py-1.5 text-sm font-medium text-white hover:bg-koralle-600"
                   >
                     Keep chat
                   </button>

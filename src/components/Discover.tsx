@@ -188,7 +188,7 @@ export function Discover({
           </p>
           <button
             onClick={onEnableDiscover}
-            className="mt-4 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-700"
+            className="mt-4 rounded-xl bg-koralle px-4 py-2.5 text-sm font-medium text-white hover:bg-koralle-600"
           >
             🙋 Turn on Discover me
           </button>
@@ -332,7 +332,7 @@ function PassengerCard({
         </div>
       </div>
       <div className="mt-3 flex justify-end">
-        <Button variant="ghost" onClick={onOpenChat}>
+        <Button onClick={onOpenChat}>
           👋 Say hi
         </Button>
       </div>

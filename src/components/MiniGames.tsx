@@ -176,7 +176,7 @@ function TicTacToe({
                 }`,
               )
             }
-            className="flex-1 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-700"
+            className="flex-1 rounded-xl bg-koralle px-4 py-2.5 text-sm font-medium text-white hover:bg-koralle-600"
           >
             Share result
           </button>
@@ -270,7 +270,7 @@ function RockPaperScissors({
               }`,
             )
           }
-          className="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-700"
+          className="w-full rounded-xl bg-koralle px-4 py-2.5 text-sm font-medium text-white hover:bg-koralle-600"
         >
           Share score
         </button>
@@ -370,7 +370,7 @@ function WouldYouRather({
                 `🤔 Would you rather ${prompt[0]} or ${prompt[1]}? I picked ${prompt[yourPick]} — you?`,
               )
             }
-            className="flex-1 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-700"
+            className="flex-1 rounded-xl bg-koralle px-4 py-2.5 text-sm font-medium text-white hover:bg-koralle-600"
           >
             Ask in chat
           </button>

@@ -51,7 +51,7 @@ export function Button({
   type?: 'button' | 'submit'
 }) {
   const styles: Record<string, string> = {
-    primary: 'bg-brand-600 text-white hover:bg-brand-700 disabled:bg-slate-300',
+    primary: 'bg-koralle text-white hover:bg-koralle-600 disabled:bg-slate-300',
     ghost: 'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50',
     danger: 'bg-rose-50 text-rose-600 ring-1 ring-rose-200 hover:bg-rose-100',
   }

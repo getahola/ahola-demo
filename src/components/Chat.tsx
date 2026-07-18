@@ -135,7 +135,7 @@ export function Chat({
         />
         <button
           type="submit"
-          className="rounded-xl bg-brand-600 px-4 font-medium text-white hover:bg-brand-700"
+          className="rounded-xl bg-koralle px-4 font-medium text-white hover:bg-koralle-600"
         >
           Send
         </button>
