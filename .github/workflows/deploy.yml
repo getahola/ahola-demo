@@ -23,6 +23,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -33,14 +38,19 @@ jobs:
         run: npm ci
 
       - name: Build
-        # Serve from /<repo>/ so asset URLs resolve on the project Pages site.
+        # The custom-domain deploy (ahola-demo -> demo.ahola.app) serves from root,
+        # so base is '/'. Any other repo is a project site served from /<repo>/.
         # VITE_APP_PASSWORD_HASH is a SHA-256 hash from a repo secret, so neither
         # the source nor the shipped bundle contains the plaintext password.
         # (Reminder: a client-side gate is still not real security.)
         run: npm run build
         env:
-          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_BASE: ${{ github.event.repository.name == 'ahola-demo' && '/' || format('/{0}/', github.event.repository.name) }}
           VITE_APP_PASSWORD_HASH: ${{ secrets.APP_PASSWORD_HASH }}
+
+      - name: Add CNAME for custom domain
+        if: github.event.repository.name == 'ahola-demo'
+        run: echo 'demo.ahola.app' > dist/CNAME
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
