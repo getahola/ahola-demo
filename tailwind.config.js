@@ -19,7 +19,9 @@ export default {
         },
         creme: '#FAF3EA',
         tinte: '#2C2C2A',
-        teal: '#0F6E56',
+        teal: {
+          DEFAULT: '#0F6E56',
+        },
       },
     },
   },

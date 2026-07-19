@@ -1,15 +1,14 @@
 /**
- * ahola brand mark — uses the app icon asset from /public.
- * BASE_URL keeps the path correct under the GitHub Pages sub-path.
+ * ahola brand mark — the cream "ă" glyph on transparent background, sits
+ * directly on the teal header/gate (no tile).
  */
 export function Logo({ size = 32 }: { size?: number }) {
   return (
     <img
-      src={`${import.meta.env.BASE_URL}ahola-icon.png`}
+      src={`${import.meta.env.BASE_URL}ahola-mark-cream-1024.png`}
       width={size}
       height={size}
       alt="ahola"
-      className="rounded-[22%]"
       style={{ width: size, height: size }}
     />
   )
