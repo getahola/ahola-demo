@@ -3,16 +3,12 @@
 **The happiest way to meet people.** Connect with friendly travelers around you based on shared interests.
 Check in to your journey, share what you're up for, and discover people who want to play a game, talk about AI, do a language tandem, or just grab a coffee.
 
-> Working name **ahola** — warm, short, and transport-agnostic. See other name ideas in [docs/NAMES.md](docs/NAMES.md).
-
 ## What's in here
 
 | Path | What it is |
 |------|-----------|
-| [docs/MVP.md](docs/MVP.md) | MVP feature set & product spec |
-| [docs/TECH_STACK.md](docs/TECH_STACK.md) | Tech stack + production architecture |
-| [docs/NAMES.md](docs/NAMES.md) | Name brainstorm |
 | `src/` | Runnable web-app prototype (React + Vite + Tailwind) |
+| `public/` | Static assets (logo, favicon, share image) |
 
 ## Run the prototype
 

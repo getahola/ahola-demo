@@ -73,7 +73,7 @@ export function PasswordGate({ children }: { children: ReactNode }) {
         </button>
 
         <p className="mt-6 text-xs text-brand-100/70">
-          © 2026 Daniel Weppeler · Concept demo · All rights reserved
+          © 2026 ahola · Concept demo · All rights reserved
         </p>
       </form>
     </div>
