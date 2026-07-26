@@ -1,10 +1,11 @@
 import type { Tab } from '../types'
+import { t } from '../i18n'
 
 const ITEMS: { id: Tab; label: string; icon: string }[] = [
-  { id: 'home', label: 'Home', icon: '🏠' },
-  { id: 'messages', label: 'Chats', icon: '💬' },
-  { id: 'profile', label: 'Profile', icon: '👤' },
-  { id: 'settings', label: 'Settings', icon: '⚙️' },
+  { id: 'home', label: t('navHome'), icon: '🏠' },
+  { id: 'messages', label: t('navChats'), icon: '💬' },
+  { id: 'profile', label: t('navProfile'), icon: '👤' },
+  { id: 'settings', label: t('navSettings'), icon: '⚙️' },
 ]
 
 export function BottomNav({

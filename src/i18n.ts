@@ -1,0 +1,234 @@
+import { isDemoMode } from './demo'
+
+/**
+ * Lightweight i18n for the landing-page demo (`?demo=1`).
+ *
+ * The demo can be shown in German or English. The landing page passes the
+ * visitor's chosen language into the iframe via `?lang=de|en`; we also fall
+ * back to the browser language. Outside demo mode the app stays English, so the
+ * full flow (verify → onboarding → chat) is unaffected — only the demo-visible
+ * screens are translated.
+ *
+ * The language is fixed for the lifetime of a page load (it comes from the URL),
+ * so a module-level constant is enough — no React context / re-render needed.
+ */
+export type Lang = 'de' | 'en'
+
+export function getLang(): Lang {
+  if (!isDemoMode()) return 'en'
+  try {
+    const p = new URLSearchParams(window.location.search).get('lang')
+    if (p === 'de' || p === 'en') return p
+    const nav = (navigator.language || 'en').toLowerCase()
+    return nav.startsWith('de') ? 'de' : 'en'
+  } catch {
+    return 'en'
+  }
+}
+
+export const lang: Lang = getLang()
+
+type Vars = Record<string, string | number>
+type Dict = Record<string, string>
+
+const en: Dict = {
+  // Checked-in header
+  checkedIn: 'Checked in',
+  ticketVerified: '✓ Ticket verified',
+  coachHidden: '🔒 Coach hidden',
+  leave: 'Leave',
+  disabledPreview: 'Disabled in this preview',
+  nowAt: 'Now at',
+  arrivingAt: 'Arriving at',
+  nextStop: 'Next stop · {stop}',
+  finalStop: 'Final stop — your trip is ending soon',
+  nextStopBtn: '⏭ Next stop',
+  coachInline: 'Coach {coach}',
+  coachHiddenInline: 'Coach hidden',
+  seatInline: 'Seat {seat}',
+  justCheckedIn: '🆕 {n} {ppl} just checked in at {stop}',
+  gotOff: '👋 {n} {ppl} got off at {stop}',
+  pplOne: 'passenger',
+  pplMany: 'passengers',
+  // Discover off
+  discoverOffTitle: 'Discover me is off',
+  discoverOffText:
+    "You're in Do Not Disturb, so other passengers are hidden — and you don't appear to them either. Your existing chats still work.",
+  turnOnDiscover: '🙋 Turn on Discover me',
+  // Arrival
+  arrivedTitle: "You've arrived in {stop}",
+  arrivedText:
+    'Your trip on {train} has ended. Everyone here has left the train and all chats have been cleared — that\u2019s how ahola keeps things private.',
+  arrivedBye: 'Safe travels — see you on your next ride. 👋',
+  // Filters + sections
+  filterAll: 'All',
+  verifiedOnly: '✓ Verified only',
+  bestMatches: 'Best matches for you',
+  alsoOnTrain: 'Also on this train',
+  noMatch: 'No passengers match that filter.',
+  // Passenger card
+  inCommon: '{n} in common',
+  justBoarded: '🆕 Just boarded',
+  justBoardedAt: 'Just boarded at {stop}',
+  verified: '✓ Verified',
+  ticketVerifiedTitle: 'Ticket verified',
+  coachCard: 'Coach {coach}',
+  coachHiddenCard: '🔒 Coach hidden',
+  coachRevealTitle: 'Exact coach is revealed once you connect',
+  sayHi: '👋 Say hi',
+  // Bottom nav
+  navHome: 'Home',
+  navChats: 'Chats',
+  navProfile: 'Profile',
+  navSettings: 'Settings',
+  // Subscribe modal
+  subTitle: 'This is a preview',
+  subText: 'Chatting with {name} happens in the real ahola app. Want to be there when it launches?',
+  subCta: 'Join the waitlist',
+  subClose: 'Maybe later',
+}
+
+const de: Dict = {
+  checkedIn: 'Eingecheckt',
+  ticketVerified: '✓ Ticket bestätigt',
+  coachHidden: '🔒 Wagen verborgen',
+  leave: 'Aussteigen',
+  disabledPreview: 'In dieser Vorschau deaktiviert',
+  nowAt: 'Jetzt in',
+  arrivingAt: 'Ankunft in',
+  nextStop: 'Nächster Halt · {stop}',
+  finalStop: 'Endhalt — deine Fahrt endet gleich',
+  nextStopBtn: '⏭ Nächster Halt',
+  coachInline: 'Wagen {coach}',
+  coachHiddenInline: 'Wagen verborgen',
+  seatInline: 'Platz {seat}',
+  justCheckedIn: '🆕 {n} {ppl} in {stop} eingecheckt',
+  gotOff: '👋 {n} {ppl} in {stop} ausgestiegen',
+  pplOne: 'Person',
+  pplMany: 'Personen',
+  discoverOffTitle: 'Entdecken ist aus',
+  discoverOffText:
+    'Du bist im Nicht-stören-Modus, also sind andere Passagiere verborgen — und du erscheinst auch bei ihnen nicht. Deine bestehenden Chats funktionieren weiter.',
+  turnOnDiscover: '🙋 Entdecken einschalten',
+  arrivedTitle: 'Angekommen in {stop}',
+  arrivedText:
+    'Deine Fahrt mit {train} ist zu Ende. Alle hier haben den Zug verlassen und alle Chats wurden gelöscht — so schützt ahola deine Privatsphäre.',
+  arrivedBye: 'Gute Weiterreise — bis zur nächsten Fahrt. 👋',
+  filterAll: 'Alle',
+  verifiedOnly: '✓ Nur bestätigte',
+  bestMatches: 'Beste Übereinstimmungen',
+  alsoOnTrain: 'Auch in diesem Zug',
+  noMatch: 'Keine Passagiere für diesen Filter.',
+  inCommon: '{n} gemeinsam',
+  justBoarded: '🆕 Neu zugestiegen',
+  justBoardedAt: 'Neu zugestiegen in {stop}',
+  verified: '✓ Bestätigt',
+  ticketVerifiedTitle: 'Ticket bestätigt',
+  coachCard: 'Wagen {coach}',
+  coachHiddenCard: '🔒 Wagen verborgen',
+  coachRevealTitle: 'Der genaue Wagen wird sichtbar, sobald ihr verbunden seid',
+  sayHi: '👋 Hallo sagen',
+  navHome: 'Start',
+  navChats: 'Chats',
+  navProfile: 'Profil',
+  navSettings: 'Einstellungen',
+  subTitle: 'Das ist eine Vorschau',
+  subText: 'Mit {name} schreiben geht in der echten ahola-App. Willst du dabei sein, wenn sie startet?',
+  subCta: 'Auf die Warteliste',
+  subClose: 'Vielleicht später',
+}
+
+export function t(key: string, vars?: Vars): string {
+  const dict = lang === 'de' ? de : en
+  let s = dict[key] ?? en[key] ?? key
+  if (vars) {
+    for (const k of Object.keys(vars)) {
+      s = s.split(`{${k}}`).join(String(vars[k]))
+    }
+  }
+  return s
+}
+
+/** Plural helper for "passenger(s)" / "Person(en)". */
+export function ppl(n: number): string {
+  return n === 1 ? t('pplOne') : t('pplMany')
+}
+
+/** Interest labels (canonical English keys stay stable for matching/filtering). */
+const INTEREST_DE: Dict = {
+  Games: 'Spiele',
+  'AI / Tech': 'KI / Tech',
+  Career: 'Karriere',
+  Books: 'Bücher',
+  Coffee: 'Kaffee',
+  'Language exchange': 'Sprachtandem',
+  'Quiet company': 'Ruhige Gesellschaft',
+  'Travel tips': 'Reisetipps',
+  Music: 'Musik',
+  Startups: 'Startups',
+  Food: 'Essen',
+  Sports: 'Sport',
+}
+
+export function tInterest(key: string): string {
+  if (lang === 'de') return INTEREST_DE[key] ?? key
+  return key
+}
+
+/** German bio / lookingFor for the mock passengers (by id). */
+const PASSENGER_DE: Record<string, { bio: string; lookingFor: string }> = {
+  p1: {
+    bio: 'Data Scientist, immer für eine gute Diskussion zu haben.',
+    lookingFor: 'Würde gern über die Zukunft von KI reden. Kaffee im Bordbistro?',
+  },
+  p2: {
+    bio: 'Schach-Fan, dienstlich unterwegs.',
+    lookingFor: 'Suche einen Schach- oder Kartenpartner zwischen Frankfurt und München.',
+  },
+  p3: {
+    bio: 'Lerne Deutsch, Muttersprache Spanisch.',
+    lookingFor: 'Sprachtandem? Ich helfe mit Spanisch, du mit meinem Deutsch. :)',
+  },
+  p4: {
+    bio: 'Gründer, baue ein Klima-Startup.',
+    lookingFor: 'Erzähle gern Gründer-Storys oder fachsimple über Tech.',
+  },
+  p5: {
+    bio: 'Lese alles. Introvertiert-freundlich.',
+    lookingFor: 'Ruhige Gesellschaft ist auch schön — Buchtipps sehr willkommen.',
+  },
+  p6: {
+    bio: 'Wochenend-Fußballer, Vollzeit-Optimist.',
+    lookingFor: 'Jemand Lust auf ein schnelles Quiz oder Fußball-Talk?',
+  },
+  p7: {
+    bio: 'Illustratorin, zeichne Fremde im Zug (mit Erlaubnis!).',
+    lookingFor: 'Kurze Fahrt heute — Lust auf einen schnellen Kaffee und Plausch vor Augsburg.',
+  },
+  p8: {
+    bio: 'Doktorand, pendle zwischen Laboren.',
+    lookingFor: 'Immer bereit, über Forschung zu fachsimpeln oder Paper-Tipps zu tauschen.',
+  },
+  p9: {
+    bio: 'Fotograf, jage das goldene Licht vor dem Fenster.',
+    lookingFor: 'Teile gern Geheimtipps entlang der Strecke.',
+  },
+  p10: {
+    bio: 'Musiker, unterwegs zu einem Gig im Norden.',
+    lookingFor: 'Jemand auf Indie-Musik? Freue mich über Empfehlungen für die Fahrt.',
+  },
+  p11: {
+    bio: 'Produktdesignerin, Skizzenbuch immer offen.',
+    lookingFor: 'Rede gern über Design, Startups oder den besten Kaffee an Bord.',
+  },
+}
+
+export function passengerBio(id: string, fallback: string): string {
+  if (lang === 'de') return PASSENGER_DE[id]?.bio ?? fallback
+  return fallback
+}
+
+export function passengerLookingFor(id: string, fallback: string): string {
+  if (lang === 'de') return PASSENGER_DE[id]?.lookingFor ?? fallback
+  return fallback
+}

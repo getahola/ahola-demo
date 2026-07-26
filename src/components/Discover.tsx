@@ -2,8 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CheckIn, Passenger, Profile } from '../types'
 import { MOCK_PASSENGERS, routeStops } from '../data'
 import { isDemoMode } from '../demo'
+import { t, ppl, tInterest, passengerBio, passengerLookingFor } from '../i18n'
 import { Avatar, Button, Card, Tag } from './ui'
 import { PassengerMenu } from './PassengerMenu'
+import { SubscribeModal } from './SubscribeModal'
 
 function sharedInterests(a: string[], b: string[]): string[] {
   return a.filter((i) => b.includes(i))
@@ -38,7 +40,11 @@ export function Discover({
 }) {
   const [filter, setFilter] = useState<string | null>(null)
   const [verifiedOnly, setVerifiedOnly] = useState(false)
+  const [subscribeFor, setSubscribeFor] = useState<Passenger | null>(null)
   const demo = isDemoMode()
+
+  // In the demo, "Say hi" can't open a real chat — nudge to the waitlist instead.
+  const handleSayHi = (p: Passenger) => (demo ? setSubscribeFor(p) : onOpenChat(p))
 
   const stops = useMemo(() => routeStops(checkIn), [checkIn])
   const [stopIndex, setStopIndex] = useState(0)
@@ -114,15 +120,15 @@ export function Discover({
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-              <span className="text-[10px] uppercase tracking-wide text-brand-100">Checked in</span>
+              <span className="text-[10px] uppercase tracking-wide text-brand-100">{t('checkedIn')}</span>
               {profile.ticketVerified && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-400/20 px-1.5 py-0.5 text-[10px] font-medium text-emerald-100 ring-1 ring-emerald-300/40">
-                  ✓ Ticket verified
+                  {t('ticketVerified')}
                 </span>
               )}
               {profile.hideCoach && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-brand-100">
-                  🔒 Coach hidden
+                  {t('coachHidden')}
                 </span>
               )}
             </p>
@@ -136,28 +142,30 @@ export function Discover({
               {checkIn.date}
               {checkIn.coach
                 ? profile.hideCoach
-                  ? ' · Coach hidden'
-                  : ` · Coach ${checkIn.coach}${checkIn.seat ? `, Seat ${checkIn.seat}` : ''}`
+                  ? ` · ${t('coachHiddenInline')}`
+                  : ` · ${t('coachInline', { coach: checkIn.coach })}${
+                      checkIn.seat ? `, ${t('seatInline', { seat: checkIn.seat })}` : ''
+                    }`
                 : ''}
             </p>
           </div>
           <button
             onClick={onLeave}
             disabled={demo}
-            title={demo ? 'Disabled in this preview' : undefined}
+            title={demo ? t('disabledPreview') : undefined}
             className="shrink-0 rounded-lg bg-white/15 px-3 py-1.5 text-sm font-medium hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
-            Leave
+            {t('leave')}
           </button>
         </div>
 
         <div className="mt-2.5 flex items-center gap-3 border-t border-white/15 pt-2.5">
           <div className="min-w-0 flex-1">
             <p className="flex items-center gap-1.5 text-sm font-medium">
-              🚉 {atDestination ? 'Arriving at' : 'Now at'} {currentStop}
+              🚉 {atDestination ? t('arrivingAt') : t('nowAt')} {currentStop}
             </p>
             <p className="mt-0.5 text-xs text-brand-100">
-              {atDestination ? 'Final stop — your trip is ending soon' : `Next stop · ${nextStop}`}
+              {atDestination ? t('finalStop') : t('nextStop', { stop: nextStop })}
             </p>
           </div>
           {!atDestination && (
@@ -165,21 +173,20 @@ export function Discover({
               onClick={advance}
               className="shrink-0 rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium hover:bg-white/25"
             >
-              ⏭ Next stop
+              {t('nextStopBtn')}
             </button>
           )}
         </div>
 
         {justBoardedIds.length > 0 && (
           <p className="mt-2 rounded-lg bg-emerald-400/15 px-3 py-2 text-xs font-medium text-emerald-100">
-            🆕 {justBoardedIds.length} passenger{justBoardedIds.length > 1 ? 's' : ''} just checked in at{' '}
-            {currentStop}
+            {t('justCheckedIn', { n: justBoardedIds.length, ppl: ppl(justBoardedIds.length), stop: currentStop })}
           </p>
         )}
 
         {justLeftNames.length > 0 && (
           <p className="mt-2 rounded-lg bg-white/10 px-3 py-2 text-xs font-medium text-brand-100">
-            👋 {justLeftNames.length} passenger{justLeftNames.length > 1 ? 's' : ''} got off at {currentStop}
+            {t('gotOff', { n: justLeftNames.length, ppl: ppl(justLeftNames.length), stop: currentStop })}
           </p>
         )}
       </div>
@@ -187,36 +194,34 @@ export function Discover({
       {!profile.available ? (
         <div className="rounded-2xl bg-amber-50 p-5 text-center ring-1 ring-amber-200">
           <div className="mb-2 text-4xl">🙈</div>
-          <h3 className="text-base font-semibold text-slate-800">Discover me is off</h3>
+          <h3 className="text-base font-semibold text-slate-800">{t('discoverOffTitle')}</h3>
           <p className="mx-auto mt-1 max-w-xs text-sm text-slate-600">
-            You're in Do Not Disturb, so other passengers are hidden — and you don't appear to them
-            either. Your existing chats still work.
+            {t('discoverOffText')}
           </p>
           <button
             onClick={onEnableDiscover}
             className="mt-4 rounded-xl bg-koralle px-4 py-2.5 text-sm font-medium text-white hover:bg-koralle-600"
           >
-            🙋 Turn on Discover me
+            {t('turnOnDiscover')}
           </button>
         </div>
       ) : atDestination ? (
         <div className="rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-100">
           <div className="mb-3 text-5xl">🎉</div>
-          <h3 className="text-lg font-semibold text-slate-800">You've arrived in {currentStop}</h3>
+          <h3 className="text-lg font-semibold text-slate-800">{t('arrivedTitle', { stop: currentStop })}</h3>
           <p className="mx-auto mt-2 max-w-xs text-sm text-slate-600">
-            Your trip on {checkIn.trainNumber} has ended. Everyone here has left the train and all
-            chats have been cleared — that's how ahola keeps things private.
+            {t('arrivedText', { train: checkIn.trainNumber })}
           </p>
           <p className="mx-auto mt-3 max-w-xs text-sm text-slate-500">
-            Safe travels — see you on your next ride. 👋
+            {t('arrivedBye')}
           </p>
         </div>
       ) : (
         <>
           <div className="flex flex-wrap gap-2">
-        <Tag label="All" active={filter === null} onClick={() => setFilter(null)} />
+        <Tag label={t('filterAll')} active={filter === null} onClick={() => setFilter(null)} />
         {profile.interests.map((i) => (
-          <Tag key={i} label={i} active={filter === i} onClick={() => setFilter(filter === i ? null : i)} />
+          <Tag key={i} label={tInterest(i)} active={filter === i} onClick={() => setFilter(filter === i ? null : i)} />
         ))}
         <button
           type="button"
@@ -227,14 +232,14 @@ export function Discover({
               : 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200'
           }`}
         >
-          ✓ Verified only
+          {t('verifiedOnly')}
         </button>
       </div>
 
       {matches.length > 0 && (
         <section className="space-y-3">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
-            Best matches for you
+            {t('bestMatches')}
           </h3>
           {matches.map(({ passenger, shared }) => (
             <PassengerCard
@@ -243,7 +248,7 @@ export function Discover({
               shared={shared}
               connected={connectedIds.includes(passenger.id)}
               justBoarded={justBoardedIds.includes(passenger.id)}
-              onOpenChat={() => onOpenChat(passenger)}
+              onOpenChat={() => handleSayHi(passenger)}
               onBlock={() => onBlock(passenger)}
               onReport={() => onReport(passenger)}
             />
@@ -253,7 +258,7 @@ export function Discover({
 
       {others.length > 0 && (
         <section className="space-y-3">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-400">Also on this train</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-400">{t('alsoOnTrain')}</h3>
           {others.map(({ passenger, shared }) => (
             <PassengerCard
               key={passenger.id}
@@ -261,7 +266,7 @@ export function Discover({
               shared={shared}
               connected={connectedIds.includes(passenger.id)}
               justBoarded={justBoardedIds.includes(passenger.id)}
-              onOpenChat={() => onOpenChat(passenger)}
+              onOpenChat={() => handleSayHi(passenger)}
               onBlock={() => onBlock(passenger)}
               onReport={() => onReport(passenger)}
             />
@@ -270,9 +275,13 @@ export function Discover({
       )}
 
       {ranked.length === 0 && (
-        <p className="py-8 text-center text-slate-400">No passengers match that filter.</p>
+        <p className="py-8 text-center text-slate-400">{t('noMatch')}</p>
       )}
         </>
+      )}
+
+      {subscribeFor && (
+        <SubscribeModal name={subscribeFor.name} onClose={() => setSubscribeFor(null)} />
       )}
     </div>
   )
@@ -304,7 +313,7 @@ function PassengerCard({
             <p className="truncate font-semibold text-slate-800">{passenger.name}</p>
             {shared.length > 0 && (
               <span className="shrink-0 rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-800">
-                {shared.length} in common
+                {t('inCommon', { n: shared.length })}
               </span>
             )}
             <div className="ml-auto shrink-0">
@@ -314,46 +323,46 @@ function PassengerCard({
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             {justBoarded && (
               <span
-                title={`Just boarded at ${passenger.boardsAt}`}
+                title={t('justBoardedAt', { stop: passenger.boardsAt ?? '' })}
                 className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700"
               >
-                🆕 Just boarded
+                {t('justBoarded')}
               </span>
             )}
             {passenger.ticketVerified && (
               <span
-                title="Ticket verified"
+                title={t('ticketVerifiedTitle')}
                 className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700"
               >
-                ✓ Verified
+                {t('verified')}
               </span>
             )}
             {passenger.coach &&
               (connected ? (
                 <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">
-                  Coach {passenger.coach}
+                  {t('coachCard', { coach: passenger.coach })}
                 </span>
               ) : (
                 <span
-                  title="Exact coach is revealed once you connect"
+                  title={t('coachRevealTitle')}
                   className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-400"
                 >
-                  🔒 Coach hidden
+                  {t('coachHiddenCard')}
                 </span>
               ))}
           </div>
-          <p className="mt-1.5 text-sm text-slate-500">{passenger.bio}</p>
-          <p className="mt-1 text-sm text-slate-700">“{passenger.lookingFor}”</p>
+          <p className="mt-1.5 text-sm text-slate-500">{passengerBio(passenger.id, passenger.bio)}</p>
+          <p className="mt-1 text-sm text-slate-700">“{passengerLookingFor(passenger.id, passenger.lookingFor)}”</p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {passenger.interests.map((i) => (
-              <Tag key={i} label={i} highlight={shared.includes(i)} />
+              <Tag key={i} label={tInterest(i)} highlight={shared.includes(i)} />
             ))}
           </div>
         </div>
       </div>
       <div className="mt-3 flex justify-end">
         <Button onClick={onOpenChat}>
-          👋 Say hi
+          {t('sayHi')}
         </Button>
       </div>
     </Card>
