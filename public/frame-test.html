@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ahola — Frame test</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="ahola-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --teal:#0F6E56; --teal-deep:#08382C; --teal-mid:#125F4B;
+  --coral:#D85A30; --coral-hi:#E8734B;
+  --cream:#FAF3EA; --cream-dim:#C7D8D0;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--teal-deep); color:var(--cream);
+  font-family:'Outfit',system-ui,sans-serif; font-weight:300;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+
+.demo{padding:36px 0 64px}
+.demo .demo-head{max-width:640px}
+.demo h2{font-size:clamp(26px,4vw,34px);font-weight:500;letter-spacing:-.02em;margin-top:10px}
+.demo .demo-lead{margin-top:12px;color:var(--cream-dim);font-size:clamp(16px,2vw,18px);max-width:52ch}
+
+.note{margin:24px 0;padding:12px 16px;border:1px solid rgba(232,115,75,.4);border-radius:var(--radius);font-size:14px;color:var(--cream-dim);background:rgba(250,243,234,.05)}
+.note code{font-family:'JetBrains Mono',monospace;color:var(--cream)}
+
+.phone{
+  margin:44px auto 0;position:relative;width:360px;max-width:100%;
+  aspect-ratio:9 / 18.5;
+  border-radius:56px;padding:13px;
+  background:linear-gradient(145deg,#2b2f36 0%,#4a4f57 18%,#1c1f24 42%,#3a3e45 70%,#15171b 100%);
+  box-shadow:
+    0 40px 80px -34px rgba(0,0,0,.75),
+    inset 0 0 0 1px rgba(255,255,255,.14),
+    inset 0 0 0 2px rgba(0,0,0,.4);
+}
+.phone::after{
+  content:"";position:absolute;inset:7px;border-radius:44px;
+  background:#000;z-index:1;
+}
+.phone .btn-side{position:absolute;left:-3px;background:linear-gradient(90deg,#4a4f57,#23262b);border-radius:2px 0 0 2px;z-index:0;box-shadow:-1px 0 2px rgba(0,0,0,.4)}
+.phone .btn-side.mute{top:112px;width:3px;height:26px}
+.phone .btn-side.vol-up{top:158px;width:3px;height:52px}
+.phone .btn-side.vol-down{top:224px;width:3px;height:52px}
+.phone .btn-side.power{left:auto;right:-3px;top:180px;width:3px;height:74px;border-radius:0 2px 2px 0;background:linear-gradient(270deg,#4a4f57,#23262b);box-shadow:1px 0 2px rgba(0,0,0,.4)}
+.phone-screen{
+  position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;
+  background:var(--teal-mid);z-index:2;
+}
+.phone-screen::before{
+  content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:92px;height:27px;background:#000;border-radius:16px;z-index:6;
+  pointer-events:none;
+}
+.phone-screen iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+}
+
+@media (max-width:540px){
+  .demo{padding:48px 0}
+  .phone{
+    width:100%;max-width:none;margin-top:24px;
+    background:none;border-radius:18px;padding:0;
+    aspect-ratio:auto;height:min(78vh,680px);
+    box-shadow:0 20px 50px -24px rgba(0,0,0,.6);
+  }
+  .phone::after{display:none}
+  .phone .btn-side{display:none}
+  .phone-screen{border-radius:18px;border:1px solid rgba(250,243,234,.14)}
+  .phone-screen::before{display:none}
+}
+</style>
+</head>
+<body>
+<section class="demo">
+  <div class="wrap">
+    <div class="demo-head">
+      <p class="mono">Frame test</p>
+      <h2>Take a look around</h2>
+      <p class="demo-lead">Same phone frame + iframe as the landing page. Test touch scrolling inside the demo before pushing the landing changes.</p>
+    </div>
+
+    <div class="note">Loads <code>demo.ahola.app/?demo=1</code> in the same embedded frame. Try scrolling inside the phone on a real device.</div>
+
+    <div class="phone">
+      <span class="btn-side mute" aria-hidden="true"></span>
+      <span class="btn-side vol-up" aria-hidden="true"></span>
+      <span class="btn-side vol-down" aria-hidden="true"></span>
+      <span class="btn-side power" aria-hidden="true"></span>
+      <div class="phone-screen" id="phoneScreen"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  var lang = (new URLSearchParams(location.search).get('lang')) || 'en';
+  var screen = document.getElementById('phoneScreen');
+  var frame = document.createElement('iframe');
+  frame.src = 'https://demo.ahola.app/?demo=1&lang=' + lang;
+  frame.title = 'ahola Demo';
+  frame.setAttribute('allow', 'clipboard-write; fullscreen');
+  screen.appendChild(frame);
+</script>
+</body>
+</html>
