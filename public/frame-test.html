@@ -34,6 +34,14 @@ body{
 .note{margin:24px 0;padding:12px 16px;border:1px solid rgba(232,115,75,.4);border-radius:var(--radius);font-size:14px;color:var(--cream-dim);background:rgba(250,243,234,.05)}
 .note code{font-family:'JetBrains Mono',monospace;color:var(--cream)}
 
+footer{border-top:1px solid rgba(250,243,234,.14);margin-top:64px;padding:40px 0 64px}
+footer h3{font-size:20px;font-weight:500;margin-bottom:8px}
+footer p{color:var(--cream-dim);font-size:15px;max-width:52ch;margin-bottom:20px}
+footer .links{display:flex;flex-wrap:wrap;gap:16px;font-size:14px}
+footer a{color:var(--cream-dim);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s ease,color .15s ease}
+footer a:hover{color:var(--cream);border-bottom-color:var(--cream)}
+footer .copy{margin-top:28px;font-size:13px;color:var(--cream-dim)}
+
 .phone{
   margin:44px auto 0;position:relative;width:360px;max-width:100%;
   aspect-ratio:9 / 18.5;
@@ -100,6 +108,21 @@ body{
       <div class="phone-screen" id="phoneScreen"></div>
     </div>
   </div>
+
+  <footer>
+    <div class="wrap">
+      <p class="mono">Below the frame</p>
+      <h3>Scroll test content</h3>
+      <p>This footer sits below the phone so you can tell the outer page scroll apart from scrolling inside the demo frame. Swipe inside the phone — the app should scroll on its own without moving the page.</p>
+      <div class="links">
+        <a href="https://demo.ahola.app/?demo=1">Open demo directly ↗</a>
+        <a href="https://ahola.app/">Landing page</a>
+        <a href="https://ahola.app/datenschutz.html">Privacy</a>
+        <a href="https://ahola.app/impressum.html">Imprint</a>
+      </div>
+      <p class="copy">ahola — frame test · not indexed · for internal testing only</p>
+    </div>
+  </footer>
 </section>
 
 <script>
