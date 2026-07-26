@@ -1,4 +1,5 @@
 import type { CheckIn, Profile } from '../types'
+import { isDemoMode } from '../demo'
 import { Card } from './ui'
 
 function Toggle({ on }: { on: boolean }) {
@@ -29,6 +30,7 @@ export function Settings({
   onToggleAvailable: () => void
   onEndTrip: () => void
 }) {
+  const demo = isDemoMode()
   return (
     <div className="space-y-5">
       <div>
@@ -101,15 +103,18 @@ export function Settings({
             </p>
             <button
               onClick={onEndTrip}
-              className="mt-3 w-full rounded-xl bg-rose-50 px-4 py-2.5 text-sm font-medium text-rose-600 ring-1 ring-rose-200 hover:bg-rose-100"
+              disabled={demo}
+              title={demo ? 'Disabled in this preview' : undefined}
+              className="mt-3 w-full rounded-xl bg-rose-50 px-4 py-2.5 text-sm font-medium text-rose-600 ring-1 ring-rose-200 hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-rose-50"
             >
               🏁 End trip / I've arrived
             </button>
+            {demo && (
+              <p className="mt-2 text-center text-xs text-slate-400">Disabled in this preview</p>
+            )}
           </Card>
         </section>
       )}
-
-      <p className="pt-2 text-center text-xs text-slate-400">ahola · prototype · local data only</p>
     </div>
   )
 }

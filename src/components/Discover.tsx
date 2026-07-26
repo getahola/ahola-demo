@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CheckIn, Passenger, Profile } from '../types'
 import { MOCK_PASSENGERS, routeStops } from '../data'
+import { isDemoMode } from '../demo'
 import { Avatar, Button, Card, Tag } from './ui'
 import { PassengerMenu } from './PassengerMenu'
 
@@ -37,6 +38,7 @@ export function Discover({
 }) {
   const [filter, setFilter] = useState<string | null>(null)
   const [verifiedOnly, setVerifiedOnly] = useState(false)
+  const demo = isDemoMode()
 
   const stops = useMemo(() => routeStops(checkIn), [checkIn])
   const [stopIndex, setStopIndex] = useState(0)
@@ -107,16 +109,30 @@ export function Discover({
   const others = ranked.filter((r) => r.shared.length === 0)
 
   return (
-    <div className="space-y-5">
-      <div className="rounded-2xl bg-teal p-4 text-white shadow-sm ring-1 ring-black/10">
+    <div className="space-y-4">
+      <div className="rounded-2xl bg-teal p-3.5 text-white shadow-sm ring-1 ring-black/10">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-xs uppercase tracking-wide text-brand-100">Checked in</p>
-            <p className="text-lg font-semibold">
-              {checkIn.trainNumber}
-              {checkIn.from && checkIn.to ? ` · ${checkIn.from} → ${checkIn.to}` : ''}
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+              <span className="text-[10px] uppercase tracking-wide text-brand-100">Checked in</span>
+              {profile.ticketVerified && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-400/20 px-1.5 py-0.5 text-[10px] font-medium text-emerald-100 ring-1 ring-emerald-300/40">
+                  ✓ Ticket verified
+                </span>
+              )}
+              {profile.hideCoach && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-brand-100">
+                  🔒 Coach hidden
+                </span>
+              )}
             </p>
-            <p className="text-sm text-brand-100">
+            <p className="mt-0.5 text-base font-semibold">{checkIn.trainNumber}</p>
+            {checkIn.from && checkIn.to && (
+              <p className="text-sm text-brand-100">
+                {checkIn.from} → {checkIn.to}
+              </p>
+            )}
+            <p className="text-xs text-brand-100">
               {checkIn.date}
               {checkIn.coach
                 ? profile.hideCoach
@@ -124,28 +140,18 @@ export function Discover({
                   : ` · Coach ${checkIn.coach}${checkIn.seat ? `, Seat ${checkIn.seat}` : ''}`
                 : ''}
             </p>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {profile.ticketVerified && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-400/20 px-2 py-0.5 text-xs font-medium text-emerald-100 ring-1 ring-emerald-300/40">
-                  ✓ Ticket verified
-                </span>
-              )}
-              {profile.hideCoach && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-xs font-medium text-brand-100">
-                  🔒 Coach hidden
-                </span>
-              )}
-            </div>
           </div>
           <button
             onClick={onLeave}
-            className="shrink-0 rounded-lg bg-white/15 px-3 py-1.5 text-sm font-medium hover:bg-white/25"
+            disabled={demo}
+            title={demo ? 'Disabled in this preview' : undefined}
+            className="shrink-0 rounded-lg bg-white/15 px-3 py-1.5 text-sm font-medium hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             Leave
           </button>
         </div>
 
-        <div className="mt-3 flex items-center gap-3 border-t border-white/15 pt-3">
+        <div className="mt-2.5 flex items-center gap-3 border-t border-white/15 pt-2.5">
           <div className="min-w-0 flex-1">
             <p className="flex items-center gap-1.5 text-sm font-medium">
               🚉 {atDestination ? 'Arriving at' : 'Now at'} {currentStop}
@@ -192,6 +198,18 @@ export function Discover({
           >
             🙋 Turn on Discover me
           </button>
+        </div>
+      ) : atDestination ? (
+        <div className="rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-100">
+          <div className="mb-3 text-5xl">🎉</div>
+          <h3 className="text-lg font-semibold text-slate-800">You've arrived in {currentStop}</h3>
+          <p className="mx-auto mt-2 max-w-xs text-sm text-slate-600">
+            Your trip on {checkIn.trainNumber} has ended. Everyone here has left the train and all
+            chats have been cleared — that's how ahola keeps things private.
+          </p>
+          <p className="mx-auto mt-3 max-w-xs text-sm text-slate-500">
+            Safe travels — see you on your next ride. 👋
+          </p>
         </div>
       ) : (
         <>
@@ -283,11 +301,21 @@ function PassengerCard({
         <Avatar emoji={passenger.avatar} size="lg" />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="font-semibold text-slate-800">{passenger.name}</p>
+            <p className="truncate font-semibold text-slate-800">{passenger.name}</p>
+            {shared.length > 0 && (
+              <span className="shrink-0 rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-800">
+                {shared.length} in common
+              </span>
+            )}
+            <div className="ml-auto shrink-0">
+              <PassengerMenu onBlock={onBlock} onReport={onReport} />
+            </div>
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-1.5">
             {justBoarded && (
               <span
                 title={`Just boarded at ${passenger.boardsAt}`}
-                className="inline-flex items-center gap-1 rounded-md bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-700"
+                className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700"
               >
                 🆕 Just boarded
               </span>
@@ -295,34 +323,26 @@ function PassengerCard({
             {passenger.ticketVerified && (
               <span
                 title="Ticket verified"
-                className="inline-flex items-center gap-1 rounded-md bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-700"
+                className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700"
               >
                 ✓ Verified
               </span>
             )}
             {passenger.coach &&
               (connected ? (
-                <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500">
+                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">
                   Coach {passenger.coach}
                 </span>
               ) : (
                 <span
                   title="Exact coach is revealed once you connect"
-                  className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-400"
+                  className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-400"
                 >
                   🔒 Coach hidden
                 </span>
               ))}
-            {shared.length > 0 && (
-              <span className="rounded-md bg-brand-100 px-1.5 py-0.5 text-xs font-medium text-brand-800">
-                {shared.length} in common
-              </span>
-            )}
-            <div className="ml-auto">
-              <PassengerMenu onBlock={onBlock} onReport={onReport} />
-            </div>
           </div>
-          <p className="text-sm text-slate-500">{passenger.bio}</p>
+          <p className="mt-1.5 text-sm text-slate-500">{passenger.bio}</p>
           <p className="mt-1 text-sm text-slate-700">“{passenger.lookingFor}”</p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {passenger.interests.map((i) => (

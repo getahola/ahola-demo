@@ -27,8 +27,8 @@ export const DEMO_VERIFICATION: Verification = {
 
 export const DEMO_PROFILE: Profile = {
   id: 'quokka-demo',
-  name: 'Quokka',
-  avatar: '🦘',
+  name: 'Quokki',
+  avatar: '🐹',
   bio: 'Unterwegs von München nach Münster — Lust auf ein nettes Gespräch.',
   interests: ['Coffee', 'Travel tips', 'AI / Tech'],
   lookingFor: 'A good chat to pass the ride',
