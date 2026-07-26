@@ -52,7 +52,7 @@ export function ChatInbox({
                   onClick={() => onOpen(passenger)}
                   className="flex w-full items-center gap-3 rounded-2xl bg-white p-3 text-left shadow-sm ring-1 ring-slate-100 transition hover:bg-slate-50"
                 >
-                  <Avatar emoji={passenger.avatar} />
+                  <Avatar emoji={passenger.avatar} photo={passenger.photo} name={passenger.name} />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <p className="truncate font-semibold text-slate-800">{passenger.name}</p>

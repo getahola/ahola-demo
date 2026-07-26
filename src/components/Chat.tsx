@@ -59,7 +59,7 @@ export function Chat({
         <button onClick={onBack} className="rounded-lg px-2 py-1 text-slate-500 hover:bg-slate-100">
           ←
         </button>
-        <Avatar emoji={passenger.avatar} />
+        <Avatar emoji={passenger.avatar} photo={passenger.photo} name={passenger.name} />
         <div>
           <p className="font-semibold text-slate-800">{passenger.name}</p>
           <p className="text-xs text-slate-400">

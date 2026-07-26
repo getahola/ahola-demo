@@ -1,10 +1,58 @@
 import type { ReactNode } from 'react'
 
-export function Avatar({ emoji, size = 'md' }: { emoji: string; size?: 'sm' | 'md' | 'lg' }) {
+const INITIAL_COLORS = [
+  'bg-rose-100 text-rose-700 ring-rose-500/20',
+  'bg-amber-100 text-amber-700 ring-amber-500/20',
+  'bg-emerald-100 text-emerald-700 ring-emerald-500/20',
+  'bg-sky-100 text-sky-700 ring-sky-500/20',
+  'bg-violet-100 text-violet-700 ring-violet-500/20',
+  'bg-indigo-100 text-indigo-700 ring-indigo-500/20',
+]
+
+function accentFor(name: string): string {
+  let sum = 0
+  for (let i = 0; i < name.length; i++) sum += name.charCodeAt(i)
+  return INITIAL_COLORS[sum % INITIAL_COLORS.length]
+}
+
+export function Avatar({
+  emoji,
+  photo,
+  name,
+  size = 'md',
+}: {
+  emoji?: string
+  photo?: string
+  name?: string
+  size?: 'sm' | 'md' | 'lg'
+}) {
   const cls = size === 'lg' ? 'h-16 w-16 text-3xl' : size === 'sm' ? 'h-8 w-8 text-lg' : 'h-11 w-11 text-2xl'
+
+  if (photo) {
+    return (
+      <img
+        src={photo}
+        alt={name ?? ''}
+        className={`inline-block ${cls} rounded-full object-cover ring-1 ring-black/5`}
+      />
+    )
+  }
+
+  if (emoji) {
+    return (
+      <span className={`inline-flex ${cls} items-center justify-center rounded-full bg-brand-100 ring-1 ring-brand-500/20`}>
+        {emoji}
+      </span>
+    )
+  }
+
+  const initial = (name ?? '?').trim().charAt(0).toUpperCase() || '?'
+  const initialSize = size === 'lg' ? 'text-2xl' : size === 'sm' ? 'text-sm' : 'text-lg'
   return (
-    <span className={`inline-flex ${cls} items-center justify-center rounded-full bg-brand-100 ring-1 ring-brand-500/20`}>
-      {emoji}
+    <span
+      className={`inline-flex ${cls} ${initialSize} items-center justify-center rounded-full font-semibold ring-1 ${accentFor(name ?? '?')}`}
+    >
+      {initial}
     </span>
   )
 }

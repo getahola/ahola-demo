@@ -1,4 +1,5 @@
 import type { CheckIn, Profile, Verification } from './types'
+import quokkaPhoto from './assets/avatars/quokka.svg'
 
 /**
  * Landing-page preview mode — activated via `?demo=1` (e.g. demo.ahola.app/?demo=1).
@@ -29,6 +30,7 @@ export const DEMO_PROFILE: Profile = {
   id: 'quokka-demo',
   name: 'Quokki',
   avatar: '🐹',
+  photo: quokkaPhoto,
   bio: 'Unterwegs von München nach Münster — Lust auf ein nettes Gespräch.',
   interests: ['Coffee', 'Travel tips', 'AI / Tech'],
   lookingFor: 'A good chat to pass the ride',

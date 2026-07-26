@@ -143,7 +143,7 @@ function ReadOnlyProfile({ profile }: { profile: Profile }) {
       </div>
 
       <div className="flex items-center gap-3">
-        <Avatar emoji={profile.avatar} size="lg" />
+        <Avatar emoji={profile.avatar} photo={profile.photo} name={profile.name} size="lg" />
         <p className="text-lg font-semibold text-slate-800">{profile.name}</p>
       </div>
 

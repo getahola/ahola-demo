@@ -1,7 +1,8 @@
 export interface Profile {
   id: string
   name: string
-  avatar: string // emoji
+  avatar: string // emoji fallback; empty string renders initials from name
+  photo?: string // illustrated/photo avatar URL; takes precedence over avatar
   bio: string
   interests: string[]
   lookingFor: string

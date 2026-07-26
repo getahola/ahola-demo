@@ -1,4 +1,14 @@
 import type { Departure, Passenger, TicketInfo } from './types'
+import lenaPhoto from './assets/avatars/lena.svg'
+import marcoPhoto from './assets/avatars/marco.svg'
+import sofiaPhoto from './assets/avatars/sofia.svg'
+import jonasPhoto from './assets/avatars/jonas.svg'
+import amiraPhoto from './assets/avatars/amira.svg'
+import niaPhoto from './assets/avatars/nia.svg'
+import davidPhoto from './assets/avatars/david.svg'
+import yukiPhoto from './assets/avatars/yuki.svg'
+import eliasPhoto from './assets/avatars/elias.svg'
+import priyaPhoto from './assets/avatars/priya.svg'
 
 export const INTERESTS = [
   'Games',
@@ -82,7 +92,8 @@ export const MOCK_PASSENGERS: Passenger[] = [
   {
     id: 'p1',
     name: 'Lena',
-    avatar: '🦊',
+    avatar: '',
+    photo: lenaPhoto,
     bio: 'Data scientist, always up for a good debate.',
     interests: ['AI / Tech', 'Coffee', 'Startups'],
     lookingFor: 'Would love to talk about where AI is heading. Coffee in the bord bistro?',
@@ -95,6 +106,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p2',
     name: 'Marco',
     avatar: '🐼',
+    photo: marcoPhoto,
     bio: 'Chess addict travelling for work.',
     interests: ['Games', 'Books', 'Career'],
     lookingFor: 'Looking for a chess or cards partner between Frankfurt and Munich.',
@@ -105,6 +117,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p3',
     name: 'Sofia',
     avatar: '🦉',
+    photo: sofiaPhoto,
     bio: 'Learning German, native Spanish speaker.',
     interests: ['Language exchange', 'Music', 'Food'],
     lookingFor: 'Language tandem? I help with Spanish, you help with my German. :)',
@@ -118,6 +131,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p4',
     name: 'Jonas',
     avatar: '🐙',
+    photo: jonasPhoto,
     bio: 'Founder, building a climate startup.',
     interests: ['Startups', 'AI / Tech', 'Career', 'Coffee'],
     lookingFor: 'Happy to swap founder stories or just geek out about tech.',
@@ -129,6 +143,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p5',
     name: 'Amira',
     avatar: '🦄',
+    photo: amiraPhoto,
     bio: 'Reader of everything. Introvert-friendly.',
     interests: ['Books', 'Quiet company', 'Travel tips'],
     lookingFor: 'Quiet company is nice too — book recommendations very welcome.',
@@ -140,7 +155,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
   {
     id: 'p6',
     name: 'Tom',
-    avatar: '🐳',
+    avatar: '',
     bio: 'Weekend footballer, full-time optimist.',
     interests: ['Sports', 'Games', 'Music'],
     lookingFor: 'Anyone for a quick quiz game or football chat?',
@@ -152,6 +167,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p7',
     name: 'Nia',
     avatar: '🐝',
+    photo: niaPhoto,
     bio: 'Illustrator, sketching strangers on trains (with permission!).',
     interests: ['Music', 'Coffee', 'Travel tips'],
     lookingFor: 'Short trip today — up for a quick coffee and a chat before Augsburg.',
@@ -163,6 +179,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p8',
     name: 'David',
     avatar: '🦔',
+    photo: davidPhoto,
     bio: 'PhD student, commuting between labs.',
     interests: ['AI / Tech', 'Books', 'Career'],
     lookingFor: 'Always keen to nerd out about research or swap paper recommendations.',
@@ -175,6 +192,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p9',
     name: 'Yuki',
     avatar: '🐢',
+    photo: yukiPhoto,
     bio: 'Photographer chasing golden-hour light out the window.',
     interests: ['Travel tips', 'Food', 'Quiet company'],
     lookingFor: 'Happy to share hidden-gem spots along the route.',
@@ -187,6 +205,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p10',
     name: 'Elias',
     avatar: '🐧',
+    photo: eliasPhoto,
     bio: 'Musician heading to a gig up north.',
     interests: ['Music', 'Games', 'Coffee'],
     lookingFor: 'Anyone into indie music? Would love recommendations for the ride.',
@@ -198,6 +217,7 @@ export const MOCK_PASSENGERS: Passenger[] = [
     id: 'p11',
     name: 'Priya',
     avatar: '🐨',
+    photo: priyaPhoto,
     bio: 'Product designer, sketchbook always open.',
     interests: ['Startups', 'AI / Tech', 'Coffee', 'Career'],
     lookingFor: 'Down to talk design, startups, or the best on-board coffee.',

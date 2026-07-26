@@ -16,6 +16,7 @@ import { TripEnd } from './components/TripEnd'
 import { LeaveNotice } from './components/LeaveNotice'
 import { BottomNav } from './components/BottomNav'
 import { PhoneFrame } from './components/PhoneFrame'
+import { Avatar } from './components/ui'
 import { Logo } from './components/Logo'
 
 export default function App() {
@@ -211,9 +212,7 @@ export default function App() {
               }}
               className="flex items-center gap-2 rounded-full bg-white/15 py-1 pl-1 pr-3 hover:bg-white/25"
             >
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-100 text-lg ring-1 ring-brand-500/20">
-                {profile.avatar}
-              </span>
+              <Avatar emoji={profile.avatar} photo={profile.photo} name={profile.name} size="sm" />
               <span className="text-sm font-medium">{profile.name}</span>
             </button>
           )}

@@ -35,7 +35,7 @@ const en: Dict = {
   // Checked-in header
   checkedIn: 'Checked in',
   ticketVerified: '✓ Ticket verified',
-  coachHidden: '🔒 Car hidden',
+  coachHidden: '🔒 Coach hidden',
   leave: 'Leave',
   disabledPreview: 'Disabled in this preview',
   nowAt: 'Now at',
@@ -44,7 +44,7 @@ const en: Dict = {
   finalStop: 'Final stop — your trip is ending soon',
   nextStopBtn: '⏭ Next stop',
   coachInline: 'Coach {coach}',
-  coachHiddenInline: 'Car hidden',
+  coachHiddenInline: 'Coach hidden',
   seatInline: 'Seat {seat}',
   justCheckedIn: '🆕 {n} {ppl} just checked in at {stop}',
   gotOff: '👋 {n} {ppl} got off at {stop}',
@@ -73,8 +73,8 @@ const en: Dict = {
   verified: '✓ Verified',
   ticketVerifiedTitle: 'Ticket verified',
   coachCard: 'Coach {coach}',
-  coachHiddenCard: '🔒 Car hidden',
-  coachRevealTitle: 'Exact car is revealed once you connect',
+  coachHiddenCard: '🔒 Coach hidden',
+  coachRevealTitle: 'Exact coach is revealed once you connect',
   sayHi: '👋 Say hi',
   // Bottom nav
   navHome: 'Home',

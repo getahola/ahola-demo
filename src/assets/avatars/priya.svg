@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 762 762" fill="none" shape-rendering="auto">
+  <title>ahola quokka</title>
+  <circle cx="381" cy="381" r="381" fill="#cceccf"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="243" cy="235" r="86" fill="#664630"/>
+    <circle cx="519" cy="235" r="86" fill="#664630"/>
+    <circle cx="243" cy="243" r="46" fill="#c9a07a"/>
+    <circle cx="519" cy="243" r="46" fill="#c9a07a"/>
+    <path d="M381 148c118 0 208 92 208 214 0 140-96 244-208 244s-208-104-208-244c0-122 90-214 208-214Z" fill="#7d5a3c"/>
+    <ellipse cx="381" cy="470" rx="132" ry="112" fill="#cdaa84"/>
+    <circle cx="238" cy="452" r="40" fill="#df9c7e" opacity="0.6"/>
+    <circle cx="524" cy="452" r="40" fill="#df9c7e" opacity="0.6"/>
+    <circle cx="300" cy="392" r="30" fill="#2f2117"/>
+    <circle cx="462" cy="392" r="30" fill="#2f2117"/>
+    <circle cx="311" cy="383" r="10" fill="#ffffff"/>
+    <circle cx="473" cy="383" r="10" fill="#ffffff"/>
+    <path d="M381 430c26 0 44 15 44 33 0 16-20 27-44 27s-44-11-44-27c0-18 18-33 44-33Z" fill="#4a3524"/>
+    <path d="M381 490v34" stroke="#7a5636" stroke-width="12"/>
+    <path d="M328 512c18 30 36 44 53 44s35-14 53-44" stroke="#7a5636" stroke-width="13" fill="none"/>
+  </g>
+  <g transform="rotate(-9 381 150)">
+    <ellipse cx="381" cy="150" rx="156" ry="70" fill="#2f6f7d"/>
+    <ellipse cx="381" cy="140" rx="156" ry="60" fill="#ffffff" opacity="0.10"/>
+    <circle cx="470" cy="96" r="17" fill="#2f6f7d"/>
+  </g>
+</svg>

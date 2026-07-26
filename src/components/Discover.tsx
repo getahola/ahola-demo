@@ -307,7 +307,7 @@ function PassengerCard({
   return (
     <Card>
       <div className="flex gap-3">
-        <Avatar emoji={passenger.avatar} size="lg" />
+        <Avatar emoji={passenger.avatar} photo={passenger.photo} name={passenger.name} size="lg" />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <p className="truncate font-semibold text-slate-800">{passenger.name}</p>
