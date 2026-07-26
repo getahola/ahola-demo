@@ -1,4 +1,5 @@
 import type { CheckIn, Message, Profile, Report, Verification } from './types'
+import { isDemoMode } from './demo'
 
 const KEYS = {
   profile: 'sayhi.profile',
@@ -10,7 +11,13 @@ const KEYS = {
   kept: 'sayhi.kept',
 }
 
+// In landing-preview mode (?demo=1) the app runs entirely in memory: it never
+// reads from or writes to localStorage, so the embedded Quokka demo and a real
+// demo.ahola.app session can never bleed into each other.
+const DEMO = isDemoMode()
+
 function read<T>(key: string): T | null {
+  if (DEMO) return null
   try {
     const raw = localStorage.getItem(key)
     return raw ? (JSON.parse(raw) as T) : null
@@ -20,6 +27,7 @@ function read<T>(key: string): T | null {
 }
 
 function write(key: string, value: unknown): void {
+  if (DEMO) return
   try {
     localStorage.setItem(key, JSON.stringify(value))
   } catch {
@@ -33,7 +41,10 @@ export const store = {
 
   getCheckIn: () => read<CheckIn>(KEYS.checkin),
   saveCheckIn: (c: CheckIn) => write(KEYS.checkin, c),
-  clearCheckIn: () => localStorage.removeItem(KEYS.checkin),
+  clearCheckIn: () => {
+    if (DEMO) return
+    localStorage.removeItem(KEYS.checkin)
+  },
 
   // messages are keyed by passenger id
   getMessages: (): Record<string, Message[]> => read<Record<string, Message[]>>(KEYS.messages) ?? {},

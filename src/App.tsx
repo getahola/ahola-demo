@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { CheckIn, Message, Passenger, Profile, Report, Tab, Verification } from './types'
 import { store, uid } from './store'
+import { isDemoMode, DEMO_VERIFICATION, DEMO_PROFILE, DEMO_CHECKIN } from './demo'
 import { MOCK_PASSENGERS } from './data'
 import { ProfileSetup } from './components/ProfileSetup'
 import { CheckInForm } from './components/CheckInForm'
@@ -18,9 +19,12 @@ import { PhoneFrame } from './components/PhoneFrame'
 import { Logo } from './components/Logo'
 
 export default function App() {
-  const [verification, setVerification] = useState<Verification | null>(() => store.getVerification())
-  const [profile, setProfile] = useState<Profile | null>(() => store.getProfile())
-  const [checkIn, setCheckIn] = useState<CheckIn | null>(() => store.getCheckIn())
+  const demo = isDemoMode()
+  const [verification, setVerification] = useState<Verification | null>(
+    () => (demo ? DEMO_VERIFICATION : store.getVerification()),
+  )
+  const [profile, setProfile] = useState<Profile | null>(() => (demo ? DEMO_PROFILE : store.getProfile()))
+  const [checkIn, setCheckIn] = useState<CheckIn | null>(() => (demo ? DEMO_CHECKIN : store.getCheckIn()))
   const [messages, setMessages] = useState<Record<string, Message[]>>(() => store.getMessages())
   const [activeChat, setActiveChat] = useState<Passenger | null>(null)
   const [blockedIds, setBlockedIds] = useState<string[]>(() => store.getBlocked())
@@ -33,7 +37,8 @@ export default function App() {
     null,
   )
   // New users (no saved profile yet) start on the landing/home screen.
-  const [showLanding, setShowLanding] = useState(() => !store.getProfile())
+  // In demo mode we skip straight into the app as the pre-configured Quokka.
+  const [showLanding, setShowLanding] = useState(() => !demo && !store.getProfile())
 
   // A passenger is "connected" once you've exchanged messages both ways.
   // Exact coach/seat stays hidden until then (seat privacy).
