@@ -32,9 +32,13 @@ export function SubscribeModal({ name, onClose }: { name: string; onClose: () =>
     setSending(true)
     const data = new FormData()
     data.append('typ', 'Warteliste')
+    data.append('quelle', 'Demo')
     data.append('sprache', lang)
+    data.append('demo', 'ja')
+    data.append('passagier', name)
     data.append('email', value)
     data.append('consent', 'ja')
+    data.append('_subject', `ahola Warteliste (Demo · ${lang})`)
     fetch(WAITLIST_ACTION, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
       .then((res) => {
         if (res.ok) {
