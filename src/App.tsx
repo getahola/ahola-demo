@@ -198,7 +198,7 @@ export default function App() {
   return (
     <PhoneFrame>
       <div className="relative mx-auto flex h-full max-w-lg flex-col overflow-hidden">
-        <header className="flex items-center justify-between bg-teal px-4 pb-3 pt-12 text-white shadow-sm">
+        <header className="flex items-center justify-between bg-teal px-4 pb-3 pt-4 text-white shadow-sm sm:pt-12">
           <div className="flex items-center gap-2">
             <Logo size={26} />
             <span className="text-lg font-bold tracking-tight">ahola</span>
