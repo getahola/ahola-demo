@@ -83,7 +83,7 @@ const en: Dict = {
   navSettings: 'Settings',
   // Subscribe modal
   subTitle: 'This is a preview',
-  subText: 'Chatting with {name} happens in the real ahola app. Want to be there when it launches?',
+  subText: 'Chatting with {name} happens in the real ahola app.',
   subCta: 'Join the waitlist',
   subClose: 'Maybe later',
   // Waitlist survey + signup (mirrors the landing page)
@@ -162,7 +162,7 @@ const de: Dict = {
   navProfile: 'Profil',
   navSettings: 'Einstellungen',
   subTitle: 'Das ist eine Vorschau',
-  subText: 'Mit {name} schreiben geht in der echten ahola-App. Willst du dabei sein, wenn sie startet?',
+  subText: 'Mit {name} schreiben geht in der echten ahola-App.',
   subCta: 'Auf die Warteliste',
   subClose: 'Vielleicht später',
   surveyIntro: 'Ein paar kurze Fragen — hilft uns, ahola richtig zu bauen.',
