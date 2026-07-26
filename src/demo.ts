@@ -45,27 +45,13 @@ export const DEMO_CHECKIN: CheckIn = {
   seat: '21',
 }
 
-/** Where the landing page lives — used to send visitors to the waitlist form. */
-const LANDING_URL = 'https://ahola.app/'
+/** Where the landing page lives — used for the privacy-policy link. */
+export const LANDING_URL = 'https://ahola.app/'
 
 /**
- * "Say hi" in the demo can't start a real chat, so it nudges the visitor to the
- * landing-page waitlist instead. When the demo is embedded in the landing iframe
- * we ask the parent to reveal + scroll to the signup form; when it runs stand-alone
- * (opened in its own tab) we open the landing page's waitlist directly.
+ * Formspree endpoints — the same ones the landing page posts to, so demo
+ * signups land in the same inboxes / quotas.
+ *   xgogllol → survey answers, mzdngpnr → waitlist emails.
  */
-export const requestDemoSubscribe = (): void => {
-  try {
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({ type: 'ahola:subscribe' }, '*')
-      return
-    }
-  } catch {
-    // cross-origin parent access can throw — fall through to opening the page
-  }
-  try {
-    window.open(`${LANDING_URL}?subscribe=1#waitlist`, '_blank', 'noopener')
-  } catch {
-    /* ignore */
-  }
-}
+export const SURVEY_ACTION = 'https://formspree.io/f/xgogllol'
+export const WAITLIST_ACTION = 'https://formspree.io/f/mzdngpnr'
