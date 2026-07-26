@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { Profile } from '../types'
 import { AVATARS, INTERESTS } from '../data'
+import { isDemoMode } from '../demo'
+import { t, tInterest } from '../i18n'
 import { uid } from '../store'
 import { Avatar, Button, Field, Tag, inputClass } from './ui'
 
@@ -29,6 +31,11 @@ export function ProfileSetup({ initial, onSave }: { initial: Profile | null; onS
       available: initial?.available ?? true,
       hideCoach,
     })
+  }
+
+  // In the landing-page preview the profile is fixed (Quokki) — show it read-only.
+  if (isDemoMode() && initial) {
+    return <ReadOnlyProfile profile={initial} />
   }
 
   return (
@@ -120,6 +127,65 @@ export function ProfileSetup({ initial, onSave }: { initial: Profile | null; onS
         <Button onClick={submit} disabled={!canSave}>
           Save profile
         </Button>
+      </div>
+    </div>
+  )
+}
+
+function ReadOnlyProfile({ profile }: { profile: Profile }) {
+  return (
+    <div className="space-y-5">
+      <div>
+        <h2 className="text-xl font-semibold text-slate-800">{t('profileTitle')}</h2>
+        <p className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-500">
+          🔒 {t('profileReadonly')}
+        </p>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Avatar emoji={profile.avatar} size="lg" />
+        <p className="text-lg font-semibold text-slate-800">{profile.name}</p>
+      </div>
+
+      {profile.bio && (
+        <div>
+          <span className="mb-1 block text-sm font-medium text-slate-600">{t('profileBio')}</span>
+          <p className="text-sm text-slate-700">{profile.bio}</p>
+        </div>
+      )}
+
+      <div>
+        <span className="mb-2 block text-sm font-medium text-slate-600">{t('profileInterests')}</span>
+        <div className="flex flex-wrap gap-2">
+          {profile.interests.map((i) => (
+            <Tag key={i} label={tInterest(i)} highlight />
+          ))}
+        </div>
+      </div>
+
+      {profile.lookingFor && (
+        <div>
+          <span className="mb-1 block text-sm font-medium text-slate-600">{t('profileLookingFor')}</span>
+          <p className="text-sm text-slate-700">“{profile.lookingFor}”</p>
+        </div>
+      )}
+
+      <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 opacity-60">
+        <span className="text-xl">🔒</span>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium text-slate-800">{t('profileHideCoach')}</p>
+          <p className="mt-0.5 text-xs text-slate-500">
+            {profile.hideCoach ? t('profileHideCoachOn') : t('profileHideCoachOff')}
+          </p>
+        </div>
+        <span
+          aria-hidden
+          className={`relative h-6 w-11 shrink-0 rounded-full ${profile.hideCoach ? 'bg-brand-600' : 'bg-slate-300'}`}
+        >
+          <span
+            className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow ${profile.hideCoach ? 'left-[22px]' : 'left-0.5'}`}
+          />
+        </span>
       </div>
     </div>
   )
