@@ -32,7 +32,7 @@ export function SubscribeModal({ name, onClose }: { name: string; onClose: () =>
     setSending(true)
     const data = new FormData()
     data.append('typ', 'Warteliste')
-    data.append('quelle', 'Demo')
+    data.append('source', 'Demo')
     data.append('sprache', lang)
     data.append('demo', 'ja')
     data.append('passagier', name)
