@@ -95,6 +95,7 @@ const en: Dict = {
   subText: 'Chatting with {name} happens in the real ahola app.',
   subCta: 'Join the waitlist',
   subClose: 'Maybe later',
+  subDone: 'Close',
   // Waitlist survey + signup (mirrors the landing page)
   surveyIntro: 'A few quick questions — they help us build ahola right.',
   q1: 'How often are you on the train?',
@@ -182,6 +183,7 @@ const de: Dict = {
   subText: 'Mit {name} schreiben geht in der echten ahola-App.',
   subCta: 'Auf die Warteliste',
   subClose: 'Vielleicht später',
+  subDone: 'Schließen',
   surveyIntro: 'Ein paar kurze Fragen — hilft uns, ahola richtig zu bauen.',
   q1: 'Wie oft bist du im Zug unterwegs?',
   q1a: 'täglich',
